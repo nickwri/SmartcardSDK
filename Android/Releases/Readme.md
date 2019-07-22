@@ -106,6 +106,7 @@
 
 ## Render card bitmaps
 
+        HashMap<String, String> renderHashMap = CSCSMetadata.getRenderData(cardData)
         SmartcardClient.renderCard(getApplicationContext(), new ISmartcardClientEventHandler() {
             @Override
             public void onProgressUpdate(String progressMsg) {}
@@ -121,7 +122,7 @@
                 }
                 displayCard(renderResult);
             }
-        }, new RenderCardTaskParams("cscs", HashMapHelper.getTestHashMapCSCS(), rounding));
+        }, new RenderCardTaskParams("cscs", renderHashMap, null));
 
         private void displayCard(RenderCardTaskResult renders) {
 

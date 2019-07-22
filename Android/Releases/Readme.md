@@ -103,3 +103,44 @@
             }
         }, params);
 
+
+## Render card bitmaps
+
+        SmartcardClient.renderCard(getApplicationContext(), new ISmartcardClientEventHandler() {
+            @Override
+            public void onProgressUpdate(String progressMsg) {}
+
+            @Override
+            public void onPostExecute(SmartcardClientResult result) {
+                if (!result.isSuccess()) {
+                    return;
+                }
+                RenderCardTaskResult renderResult = (RenderCardTaskResult) result.getResult();
+                if (renderResult.cardFront == null) {
+                    return;
+                }
+                displayCard(renderResult);
+            }
+        }, new RenderCardTaskParams("cscs", HashMapHelper.getTestHashMapCSCS(), rounding));
+
+    private void displayCard(RenderCardTaskResult renders) {
+
+        byte[] byteArrayFront;
+        byte[] byteArrayBack;
+        try {
+            byteArrayFront = getRenderBytes(renders.cardFront); 
+            byteArrayBack = getRenderBytes(renders.cardBack);
+        } catch (Exception ex) {
+            return;
+        }
+        
+        Bitmap bmp = BitmapFactory.decodeByteArray(byteArrayFront, 0, byteArrayFront.length);
+        ImageView image = findViewById(R.id.img_show_card_front);
+        image.setImageBitmap(bmp);
+    }
+
+    private byte[] getRenderBytes(Bitmap render) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        render.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        return stream.toByteArray();
+    }

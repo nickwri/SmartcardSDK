@@ -123,24 +123,24 @@
             }
         }, new RenderCardTaskParams("cscs", HashMapHelper.getTestHashMapCSCS(), rounding));
 
-    private void displayCard(RenderCardTaskResult renders) {
+        private void displayCard(RenderCardTaskResult renders) {
 
-        byte[] byteArrayFront;
-        byte[] byteArrayBack;
-        try {
-            byteArrayFront = getRenderBytes(renders.cardFront); 
-            byteArrayBack = getRenderBytes(renders.cardBack);
-        } catch (Exception ex) {
-            return;
+            byte[] byteArrayFront;
+            byte[] byteArrayBack;
+            try {
+                byteArrayFront = getRenderBytes(renders.cardFront); 
+                byteArrayBack = getRenderBytes(renders.cardBack);
+            } catch (Exception ex) {
+                return;
+            }
+
+            Bitmap bmp = BitmapFactory.decodeByteArray(byteArrayFront, 0, byteArrayFront.length);
+            ImageView image = findViewById(R.id.img_show_card_front);
+            image.setImageBitmap(bmp);
         }
-        
-        Bitmap bmp = BitmapFactory.decodeByteArray(byteArrayFront, 0, byteArrayFront.length);
-        ImageView image = findViewById(R.id.img_show_card_front);
-        image.setImageBitmap(bmp);
-    }
 
-    private byte[] getRenderBytes(Bitmap render) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        render.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        return stream.toByteArray();
-    }
+        private byte[] getRenderBytes(Bitmap render) {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            render.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            return stream.toByteArray();
+        }

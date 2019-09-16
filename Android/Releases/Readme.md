@@ -31,7 +31,6 @@
     implementation(name: 'smartcardsdk', ext: 'aar')
     implementation(name: 'smartcardsdk-metadata-cscs', ext: 'aar')
     implementation(name: 'smartcardsdk-common', ext: 'aar')
-    implementation(name: 'smartcardsdk-render', ext: 'aar')
 
 ## Initialise the SDK
 
